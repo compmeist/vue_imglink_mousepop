@@ -1,0 +1,42 @@
+
+<style media="screen" type="text/css">
+.pop-up {
+    height: auto;
+    width: 380px;
+    margin-right: 100px;
+    margin-top: -10px;
+    position:fixed;
+right:50px;
+top:50px;
+}
+</style>
+
+
+<script>
+Vue.component('imglink', {
+
+  props: { src: {type:String,default:''} 
+    ,label: {type:String,default:'IMG'}}
+  ,data: function() { return { showImage: false }; }
+  ,computed: { imgSrc: function () {
+       if (this.showImage) 
+         var iSrc = this.src;
+       else
+         var iSrc = '';
+       return iSrc;
+    }
+  }
+  ,methods: {
+    CalcStyle: function () {
+      if (this.showImage) var rs =  { display: 'block'};
+       else
+        var rs = { display: 'none'};
+      return rs;
+    }
+  } 
+  ,template: `<div><a @mouseover="showImage=true" @mouseout="showImage=false">{{label}}</a>
+    <div class="pop-up" :style="CalcStyle()">
+      <img :src="imgSrc" height="" width="380px">
+    </div></div>`
+});
+
